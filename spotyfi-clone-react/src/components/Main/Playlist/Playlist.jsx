@@ -4,52 +4,47 @@ import PlaylistCover from "./PlaylistCover";
 import PlaylistBtn from "./PlaylistBtn";
 import PlaylistTitle from "./PlaylistTitle";
 import PlaylistDescription from "./PlaylistDescription";
+import useMenu from "../../../hooks/useContextMenu";
+import BaseToast from "../../BaseToast";
 
 
 
 
 
-const clickPosition = {x:null, y:null}
-const Playlist = ({coverUrl, title, description, classes, toggleScrolling})=>{
-    const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
-    const contextMenuRef = useRef(null)
-    const bgClasses = isOpenContextMenu ? "bg-[#272727]" :"bg-[#181818] hover:bg-[#272727]"
-    const openContextmenu =(e)=>{
-        e.preventDefault()
-        clickPosition.x = e.clientX
-        clickPosition.y = e.clientY
-        setIsOpenContextMenu(!isOpenContextMenu)
-    }
-    const closeContextMenu= ()=>{
-        setIsOpenContextMenu(!isOpenContextMenu)
-    }
 
-    const updateContextMenuPosition = ()=>{
-        contextMenuRef.current.style.top = `${clickPosition.y}px`;
-        contextMenuRef.current.style.left = `${clickPosition.x}px`;
-    }
-    useLayoutEffect(()=>{
-        toggleScrolling(!isOpenContextMenu)
-        if (isOpenContextMenu){
-            updateContextMenuPosition()
-        }
-    })
+const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showToast})=>{
 
-    return(
-        <a href="spotyfi-clone-react/src/components/Main/Main#"
-           className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
-        onContextMenu={openContextmenu} onClick={event => event.preventDefault()}>
-            <div className="relative">
-                <PlaylistCover url={coverUrl}/>
-                <PlaylistBtn />
-            </div>
-            <PlaylistTitle title={title}/>
-            <PlaylistDescription description={description}/>
-            {
-                isOpenContextMenu && <PlaylistContextMenu ref={contextMenuRef} onClose={closeContextMenu}/>
-            }
+    const {
+        isOpen : isOpenMenu,
+        open :openMenu,
+        ref:menuRef,
+        close: closeMenu
+    } = useMenu(toggleScrolling)
 
-        </a>
+
+    useLayoutEffect(() => toggleScrolling(!isOpenMenu))
+    const bgClasses = isOpenMenu ? "bg-[#272727]" :"bg-[#181818] hover:bg-[#272727]"
+
+    return (
+        <>
+            <a href="spotyfi-clone-react/src/components/Main/Main#"
+               className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
+               onContextMenu={openMenu} onClick={event => event.preventDefault()}>
+                <div className="relative">
+                    <PlaylistCover url={coverUrl}/>
+                    <PlaylistBtn/>
+                </div>
+                <PlaylistTitle title={title}/>
+                <PlaylistDescription description={description}/>
+                {
+                    isOpenMenu && <PlaylistContextMenu closeMenu={closeMenu} ref={menuRef} showToast={showToast}/>
+                }
+
+            </a>
+
+
+        </>
+
     )
 }
 export default Playlist

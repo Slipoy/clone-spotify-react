@@ -3,6 +3,8 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Registration from "./components/Registration";
 import {useEffect, useRef} from "react";
+import BaseToast from "./components/BaseToast";
+import React, {useState} from "react";
 
 
 function App() {
@@ -26,16 +28,27 @@ function App() {
             contentWrapper.removeEventListener("wheel", handleScrolling)
         }
     })
+    //for modal wind
+
+
+    const toastRef = useRef(null)
+    const showToast = (message)=>{
+        navigator.clipboard.writeText(message).then(()=>{
+            toastRef.current.show();
+        })
+    }
+
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
           <div className="flex overflow-auto">
               <TheSidebar/>
               <div className="flex-1 overflow-auto" ref={contentWrapperRef}>
                   <Header/>
-                  <Main toggleScrolling={toggleScrolling}/>
+                  <Main showToast={showToast} toggleScrolling={toggleScrolling}/>
               </div>
           </div>
           <Registration/>
+          <BaseToast test={''} ref={toastRef}/>
       </div>
   );
 }
