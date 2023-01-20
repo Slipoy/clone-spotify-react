@@ -4,7 +4,7 @@ import Playlist from "./Playlist/Playlist";
 
 
 
-const Main = ({toggleScrolling, showToast})=>{
+const Main = ({toggleScrolling, showToast,showPopover})=>{
     const playList= [
         {
             classes: '',
@@ -90,7 +90,7 @@ const Main = ({toggleScrolling, showToast})=>{
                     </div>
                     <div className="grid grid-cols-main gap-5">
                         {
-                            playList.map(item => <Playlist showToast={showToast} toggleScrolling={toggleScrolling} key={item.title} {...item} classes={item.classes}/>)
+                            playList.map(item => <Playlist showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} key={item.title} {...item} classes={item.classes}/>)
                         }
                         {/*<Playlist {...playList} classes="relative p-4 rounded-mb bg-[#181818] hover:bg-[#272727] duration-200 group"/>*/}
 

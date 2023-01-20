@@ -1,7 +1,6 @@
 import React from "react"
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
-import ButtonRegister from "./ButtonRegister";
-import ButtonLohin from "./ButtonLohin";
+import BaseButton from "../BaseBurron/BaseButton";
 
 
 const Header = ()=>{
@@ -22,8 +21,8 @@ const Header = ()=>{
             </div>
 
             <div>
-                <ButtonRegister/>
-                <ButtonLohin/>
+                <BaseButton classes={'text-gray-400 hover:text-white'}>Sign up</BaseButton>
+                <BaseButton primery>Log in</BaseButton>
 
             </div>
 

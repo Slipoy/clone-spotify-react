@@ -5,14 +5,14 @@ import PlaylistBtn from "./PlaylistBtn";
 import PlaylistTitle from "./PlaylistTitle";
 import PlaylistDescription from "./PlaylistDescription";
 import useMenu from "../../../hooks/useContextMenu";
-import BaseToast from "../../BaseToast";
 
 
 
 
 
 
-const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showToast})=>{
+
+const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showToast,showPopover})=>{
 
     const {
         isOpen : isOpenMenu,
@@ -29,7 +29,10 @@ const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showTo
         <>
             <a href="spotyfi-clone-react/src/components/Main/Main#"
                className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
-               onContextMenu={openMenu} onClick={event => event.preventDefault()}>
+               onContextMenu={openMenu} onClick={event => {
+                event.preventDefault();
+                showPopover()
+            }}>
                 <div className="relative">
                     <PlaylistCover url={coverUrl}/>
                     <PlaylistBtn/>

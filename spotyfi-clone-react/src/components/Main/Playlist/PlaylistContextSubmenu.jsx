@@ -9,7 +9,7 @@ const PlaylistContextSubmenu = ({classes,showToast,closeMenu})=>{
     return(
         <ul ref={menuItemRef} className={classes}>
             <li>
-                <button onClick={() => {
+                <button onClick={(e) => {
                     showToast("Copy link to playlist")
                     closeMenu()
                 }} className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">

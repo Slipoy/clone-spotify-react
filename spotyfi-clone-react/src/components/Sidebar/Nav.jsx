@@ -3,7 +3,7 @@ import {HomeIcon, MagnifyingGlassIcon, BuildingLibraryIcon, PlusCircleIcon, Hear
 import NavItem from "./NavItem";
 
 
-const Nav = ()=>{
+const Nav = ({showPopover})=>{
 
     const activeNavItemsClass = 'flex items-center text-white bg-[#282828] mx-2 px-4 py-2 rounded';
     const navItemClass = 'flex items-center hover:text-white  mx-2 px-4 py-2 rounded duration-300';
@@ -11,7 +11,11 @@ const Nav = ()=>{
         {
             label: "Home",
             class: activeNavItemsClass,
-            icon: <HomeIcon className='w-6 h-6'/>
+            icon: <HomeIcon className='w-6 h-6'/>,
+            action: ()=>{
+                showPopover('Create a playlist',
+                    'Log in to create and share playlist')
+            }
         },
         {
             label: 'Search',
@@ -21,17 +25,29 @@ const Nav = ()=>{
         {
             label: "Your Library",
             class: `${navItemClass} mb-6` ,
-            icon:  <BuildingLibraryIcon className='w-6 h-6'/>
+            icon:  <BuildingLibraryIcon className='w-6 h-6'/>,
+            action: ()=>{
+                showPopover('Enjoy Your Library',
+                    'Log in to see saved songs, podcast, article, and playlist in Your Library ')
+            }
         },
         {
             label: "Create Playlist",
             class: navItemClass,
-            icon: <PlusCircleIcon className='2-6 h-6' />
+            icon: <PlusCircleIcon className='2-6 h-6' />,
+            action: ()=>{
+                showPopover('Create a playlist',
+                    'Log in to create and share playlist')
+            }
         },
         {
             label: "Liked Songs",
             class: navItemClass,
-            icon: <HeartIcon className='w-6 h-6'/>
+            icon: <HeartIcon className='w-6 h-6'/>,
+            action: ()=>{
+                showPopover('Enjoy you liked Songs',
+                    'Log in to see all the you liked in one easy playlist')
+            }
         },
     ]
     return(
