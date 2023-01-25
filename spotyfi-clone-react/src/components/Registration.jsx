@@ -1,4 +1,5 @@
 import React from "react";
+import BaseButton from "./BaseButton/BaseButton";
 
 const Registration = ()=>{
     return(
@@ -8,9 +9,7 @@ const Registration = ()=>{
                 <p className="leading-6 xt-[14px] tracking-widest">Sign up to get unlimited songs and podcust with occasional
                     ands. o credit card needed</p>
             </div>
-            <button className="bg-white text-[#2c77d0]  text-[14px] font-bold leading-5
-        tracking-widest uppercase py-[9px] px-[48px] rounded-full hover:scale-105">Sign Up free
-            </button>
+            <BaseButton primery>Sign up free</BaseButton>
         </a>
     )
 }

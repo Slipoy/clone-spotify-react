@@ -5,21 +5,26 @@ import Registration from "./components/Registration";
 import {useEffect, useRef} from "react";
 import BaseToast from "./components/BaseToast";
 import React, {useState} from "react";
-import BasePopover from "./components/BasePopover";
+import BasePopover from "./components/BasePopover/BasePopover";
+import BaseModal from "./components/BaseModal/BaseModal";
+import useEvent from "./hooks/useEvent";
 
 
 function App() {
-    const contentWrapperRef = useRef()
-    let isScrollingEnable = true
-    const toggleScrolling = (isEnable)=>{
-        isScrollingEnable = isEnable
 
-    }
+    const contentWrapperRef = useRef()
+    let isScrollingEnable = true;
+
     const handleScrolling = (e)=>{
         if (isScrollingEnable) return
 
         e.preventDefault()
         e.stopPropagation()
+
+    }
+    useEvent('wheel',handleScrolling, true, ()=>contentWrapperRef.current)
+    const toggleScrolling = (isEnable)=>{
+        isScrollingEnable = isEnable
 
     }
 
@@ -32,15 +37,10 @@ function App() {
             toastRef.current.show();
         })
     }
-    const showPopover = (title, description)=> popoverRef.current.show(title, description);
 
-    useEffect(()=>{
-        const contentWrapper = contentWrapperRef.current;
-        contentWrapper.addEventListener("wheel", handleScrolling)
-        return ()=>{
-            contentWrapper.removeEventListener("wheel", handleScrolling)
-        }
-    })
+
+    const showPopover = (title, description,target, offset)=> popoverRef.current.show(title, description,target,offset);
+
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
           <div className="flex overflow-auto">

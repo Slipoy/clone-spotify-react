@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import logo from "../../Sidebar/Logo";
 
 
-const PlaylistContextSubmenu = ({classes,showToast,closeMenu})=>{
+const PlaylistContextSubmenu = ({classes,showToast,closeMenu,openEmbedModal})=>{
     const menuItemRef = useRef(null)
 
 
@@ -17,7 +17,7 @@ const PlaylistContextSubmenu = ({classes,showToast,closeMenu})=>{
                 </button>
             </li>
             <li>
-                <button className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
+                <button onClick={openEmbedModal} className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     Embed playlist
                 </button>
             </li>

@@ -3,37 +3,21 @@ import PlaylistContextSubmenu from "./PlaylistContextSubmenu";
 import useSubMenu from "../../../hooks/useContextSubMenu";
 
 
-const PlaylistContextMenu = ({ showToast,closeMenu},ref)=>{
+const PlaylistContextMenu = ({ showToast,closeMenu,showPopover,openRecomModal,openEmbedModal},ref)=>{
     const reF = useRef(null)
 
     // document.addEventListener("mousedown", onClose)
 
     const {openSubMenu, startCloseSubMenuTimer,isSubMenu,menuPositionXclass} = useSubMenu(closeMenu, reF)
-    useEffect(()=>{
-        function handleClick(e){
-            if (!ref.current.contains(e.target)){
-                closeMenu()
-            }
-        }
-        function handleEsc(e){
-            if (e.keyCode === 27){
-                closeMenu()
-            }
-        }
-        document.addEventListener("mousedown", handleClick);
-        document.addEventListener("keydown", handleEsc);
-        return ()=> {
-            document.removeEventListener("mousedown", handleClick)
-            document.removeEventListener("keydown", handleEsc)
-        }
-    })
+
+    const test = document.querySelector("nav a:nth-child(4)")
 
 
     return(
         <ul ref={ref} className="fixed bg-[#282828] text-[#aeaeae] text-sm p-1 rounded
                             shadow-xl cursor-default whitespace-nowrap divide-y divide-[#3e3e3e] z-10 ">
             <li>
-                <button className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
+                <button  className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     Add to Your Library
                 </button>
             </li>
@@ -47,12 +31,15 @@ const PlaylistContextMenu = ({ showToast,closeMenu},ref)=>{
                     </svg>
                 </button>
                 {
-                    isSubMenu && <PlaylistContextSubmenu closeMenu={closeMenu} showToast={showToast} classes={`absolute top-0 ${menuPositionXclass} bg-[#282828] text-[#aeaeae] text-sm p-1 rounded shadow-xl cursor-default`}/>
+                    isSubMenu && <PlaylistContextSubmenu openEmbedModal={openEmbedModal} closeMenu={closeMenu} showToast={showToast} classes={`absolute top-0 ${menuPositionXclass} bg-[#282828] text-[#aeaeae] text-sm p-1 rounded shadow-xl cursor-default`}/>
                 }
 
             </li>
             <li>
-                <button className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
+                <button onClick={()=>{
+                    closeMenu()
+                    openRecomModal()
+                }} className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     About recommendations
                 </button>
             </li>
