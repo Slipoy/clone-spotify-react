@@ -16,7 +16,9 @@ const PlaylistContextMenu = ({ showToast,closeMenu,showPopover,openRecomModal,op
     return(
         <ul ref={ref} className="fixed bg-[#282828] text-[#aeaeae] text-sm p-1 rounded
                             shadow-xl cursor-default whitespace-nowrap divide-y divide-[#3e3e3e] z-10 ">
-            <li>
+            <li onClick={()=>{
+                showPopover("test", "test", test)
+            }}>
                 <button  className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     Add to Your Library
                 </button>

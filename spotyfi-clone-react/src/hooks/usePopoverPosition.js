@@ -42,6 +42,7 @@ function usePopoverPosition(ref, hide){
     }
     function culculateTargetOffset(target){
         const {top ,right, left, height} = target.getBoundingClientRect();
+        console.log(target)
         return {
             top: isSmallScreen ? top + height *2 : top - (height/3) * 2,
             right:isSmallScreen ? left : right + 30

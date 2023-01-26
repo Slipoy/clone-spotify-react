@@ -41,8 +41,8 @@ const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showTo
                className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
                onContextMenu={openMenu} onClick={event => {
                 event.preventDefault();
-                showPopover('Create a playlist',
-                'Log in to create and share playlist',test)
+                // showPopover('Create a playlist',
+                // 'Log in to create and share playlist',test)
             }}>
                 <div className="relative">
                     <PlaylistCover url={coverUrl}/>
@@ -59,7 +59,7 @@ const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showTo
                 recommendationModal.isOpen && <TheModalRecommendation onClose={recommendationModal.close}/>
             }
             {
-                embedModal.isOpen && <ThemodalEmbedPlaylist onClose={embedModal.close}/>
+                embedModal.isOpen && <ThemodalEmbedPlaylist title={title} coverUrl={coverUrl} onClose={embedModal.close}/>
             }
 
 
