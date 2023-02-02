@@ -11,13 +11,18 @@ const PlaylistContextSubmenu = ({classes,showToast,closeMenu,openEmbedModal})=>{
             <li>
                 <button onClick={(e) => {
                     showToast("Copy link to playlist")
-                    closeMenu()
+                    closeMenu();
+                    e.preventDefault()
                 }} className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     Copy link to playlist
                 </button>
             </li>
             <li>
-                <button onClick={openEmbedModal} className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
+                <button onClick={(e)=>{
+                    openEmbedModal()
+                    closeMenu()
+                    e.preventDefault()
+                }} className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     Embed playlist
                 </button>
             </li>

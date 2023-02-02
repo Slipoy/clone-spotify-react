@@ -2,10 +2,10 @@ import BaseButton from "./BaseButton/BaseButton";
 import React from "react";
 
 
-function BaseCheckBox({id,children:label}){
+function BaseCheckBox({id,children:label, onClick}){
     return(
         <div className='inline-flex items-center gap-2'>
-            <input id={id} type="checkbox"
+            <input onClick={onClick} id={id} type="checkbox"
                    className='text-[#1bd760] bg-transparent rounded-sm border-neutral-500 hover:border-[#1bd760] !ring-0 !ring-offset-0'/>
 
             {

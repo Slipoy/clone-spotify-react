@@ -8,6 +8,7 @@ import useMenu from "../../../hooks/useContextMenu";
 import TheModalRecommendation from "../../BaseModal/TheModalRecommendation";
 import useModal from "../../../hooks/useModal";
 import ThemodalEmbedPlaylist from "../../The modalEmbedPlaylist/ThemodalEmbedPlaylist";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -15,9 +16,9 @@ import ThemodalEmbedPlaylist from "../../The modalEmbedPlaylist/ThemodalEmbedPla
 
 
 
-const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showToast,showPopover})=>{
 
-
+const Playlist = ({titleNone, frameUrl,coverUrl, title, description, classes, music, toggleScrolling,showToast,showPopover})=>{
+    if (titleNone) classes = ''
     const recommendationModal = useModal();
     const embedModal = useModal()
 
@@ -37,13 +38,9 @@ const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showTo
 
     return (
         <>
-            <a href="/"
+            <NavLink to={"/playlist/" + title}
                className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
-               onContextMenu={openMenu} onClick={event => {
-                event.preventDefault();
-                // showPopover('Create a playlist',
-                // 'Log in to create and share playlist',test)
-            }}>
+               onContextMenu={openMenu} >
                 <div className="relative">
                     <PlaylistCover url={coverUrl}/>
                     <PlaylistBtn/>
@@ -54,12 +51,12 @@ const Playlist = ({coverUrl, title, description, classes, toggleScrolling,showTo
                     isOpenMenu && <PlaylistContextMenu openEmbedModal={embedModal.open} openRecomModal={recommendationModal.open} isOpenMenu={isOpenMenu} showPopover={showPopover} closeMenu={closeMenu} ref={menuRef} showToast={showToast}/>
                 }
 
-            </a>
+            </NavLink>
             {
                 recommendationModal.isOpen && <TheModalRecommendation onClose={recommendationModal.close}/>
             }
             {
-                embedModal.isOpen && <ThemodalEmbedPlaylist title={title} coverUrl={coverUrl} onClose={embedModal.close}/>
+                embedModal.isOpen && <ThemodalEmbedPlaylist frameUrl={frameUrl} onClose={embedModal.close}/>
             }
 
 

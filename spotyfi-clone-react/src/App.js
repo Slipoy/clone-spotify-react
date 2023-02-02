@@ -8,6 +8,9 @@ import React, {useState} from "react";
 import BasePopover from "./components/BasePopover/BasePopover";
 import BaseModal from "./components/BaseModal/BaseModal";
 import useEvent from "./hooks/useEvent";
+import {Routes, Route} from "react-router-dom";
+import MainPlaylist from "./components/MainPlaylist/MainPlaylist";
+import HomeSection from "./components/HomeSection/HomeSection";
 
 
 function App() {
@@ -17,7 +20,6 @@ function App() {
 
     const handleScrolling = (e)=>{
         if (isScrollingEnable) return
-
         e.preventDefault()
         e.stopPropagation()
 
@@ -41,13 +43,20 @@ function App() {
 
     const showPopover = (title, description,target, offset)=> popoverRef.current.show(title, description,target,offset);
 
+
+
+
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
           <div className="flex overflow-auto">
               <TheSidebar showPopover={showPopover}/>
               <div className="flex-1 overflow-auto" ref={contentWrapperRef}>
-                  <Header/>
-                  <Main showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
+                  <Routes>
+                      <Route path='/playlist/:title' element={<MainPlaylist showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
+                      <Route path='/' element={<HomeSection showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
+                  </Routes>
+
+
               </div>
           </div>
           <Registration/>

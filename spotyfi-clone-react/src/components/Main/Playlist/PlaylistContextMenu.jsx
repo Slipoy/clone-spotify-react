@@ -3,7 +3,7 @@ import PlaylistContextSubmenu from "./PlaylistContextSubmenu";
 import useSubMenu from "../../../hooks/useContextSubMenu";
 
 
-const PlaylistContextMenu = ({ showToast,closeMenu,showPopover,openRecomModal,openEmbedModal},ref)=>{
+const PlaylistContextMenu = ({showToast,closeMenu,showPopover,openRecomModal,openEmbedModal},ref)=>{
     const reF = useRef(null)
 
     // document.addEventListener("mousedown", onClose)
@@ -16,8 +16,11 @@ const PlaylistContextMenu = ({ showToast,closeMenu,showPopover,openRecomModal,op
     return(
         <ul ref={ref} className="fixed bg-[#282828] text-[#aeaeae] text-sm p-1 rounded
                             shadow-xl cursor-default whitespace-nowrap divide-y divide-[#3e3e3e] z-10 ">
-            <li onClick={()=>{
+            <li onClick={(e)=>{
                 showPopover("test", "test", test)
+                closeMenu()
+                e.preventDefault()
+
             }}>
                 <button  className="w-full p-3 text-left hover:text-white hover:bg-[#3e3e3e] cursor-default">
                     Add to Your Library

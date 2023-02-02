@@ -4,7 +4,16 @@ import {XMarkIcon} from "@heroicons/react/24/outline";
 import useEvent from "../../hooks/useEvent";
 
 
-function BaseModal({classes,onClose: handleClose,children}) {
+function BaseModal({classes,onClose: handleClose,children, position}) {
+    let positionClasses = null;
+    let animationClasses = ''
+    if (position){
+        positionClasses = ''
+    }else {
+        positionClasses = 'items-center opacity-0 transition-opacity duration-500'
+        animationClasses = '-translate-y-10 transition-transform duration-500'
+    }
+
     const ref = useRef()
     const contentRef = useRef()
 
@@ -28,11 +37,11 @@ function BaseModal({classes,onClose: handleClose,children}) {
 
     return ReactDOM.createPortal(
         <div onClick={close}
-             className='text-white fixed inset-0 bg-black/70 z-30 flex justify-center items-center opacity-0 transition-opacity duration-500'
+             className={`text-white fixed inset-0 bg-black/70 z-30 flex justify-center ${positionClasses} `}
              ref={ref}
              role='dialog'>
             <div ref={contentRef} onClick={(event => event.stopPropagation())}
-                 className={`flex flex-col relative rounded-xl -translate-y-10 transition-transform duration-500 ${classes}`}>
+                 className={`flex flex-col relative rounded-xl ${animationClasses} ${classes}`}>
                 <button onClick={close} className='absolute right-0 p-3 text-neutral-500 hover:text-neutral-200'>
                     <XMarkIcon className='w-8 h-8'/>
                 </button>
