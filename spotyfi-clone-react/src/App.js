@@ -15,6 +15,10 @@ import HomeSection from "./components/HomeSection/HomeSection";
 
 function App() {
 
+
+    document.addEventListener("scroll",()=>{
+        console.log("ello")
+    })
     const contentWrapperRef = useRef()
     let isScrollingEnable = true;
 

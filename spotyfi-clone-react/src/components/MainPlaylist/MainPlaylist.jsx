@@ -1,9 +1,5 @@
 import React from "react";
 import Header from "../Header/Header";
-import Main from "../Main/Main";
-import {Route, Routes} from "react-router-dom";
-import MainWithPlaylists from "../Main/MainWithPlaylists";
-import CurrentSection from "../Main/CurrentSection/CurrentSection";
 
 
 

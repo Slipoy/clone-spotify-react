@@ -115,7 +115,7 @@ export const playListData = [
         coverUrl:'https://i.scdn.co/image/ab67706f00000003724554ed6bed6f051d9b0bfc'
     },
     {
-        classes: 'hidden 5xl:block',
+        classes: 'hidden 6xl:block',
         frameUrl:
             'https://open.spotify.com/embed/playlist/37i9dQZF1DWT5lkChsPmpy?utm_source=generator',
         title:"Workday Lounge",

@@ -1,7 +1,6 @@
 import React, {forwardRef} from "react";
 
-import PlaylistSection from "./SectionPlaylist/PlaylistSection";
-import {Route, Routes} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import MainWithPlaylists from "./MainWithPlaylists";
 import CurrentSection from "./CurrentSection/CurrentSection";
 
@@ -19,7 +18,7 @@ const Main = ({toggleScrolling, showToast,showPopover},ref)=>{
                 <Route path='/section/:title' element={<CurrentSection showToast={showToast} showPopover={showPopover} toggleScrolling={toggleScrolling}/>}/>
 
             </Routes>
-            <div className='w-full  h-[200px] pb-[48px] px-[32px]'>
+            <div className='w-full  h-[100px] pb-[48px] px-[32px]'>
                 <div className='w-full border-t-neutral-400 mt-10 border-t' ></div>
             </div>
         </main>
