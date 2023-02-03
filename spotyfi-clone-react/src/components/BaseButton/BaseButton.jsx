@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function BaseButton({primery,accent, classes,onClick: handleClick, children: label}) {
+function BaseButton({primery,accent, classes,onClick: handleClick, children: label, href}) {
     let typeClasses = null;
 
     if (primery){
@@ -16,10 +16,10 @@ function BaseButton({primery,accent, classes,onClick: handleClick, children: lab
     }
 
     return (
-        <button onClick={handleClick}
+        <a href={href} onClick={handleClick}
                 className={`font-semibold rounded-full hover:scale-105 ${typeClasses} ${classes}`}>
             {label}
-        </button>
+        </a>
 
     )
 

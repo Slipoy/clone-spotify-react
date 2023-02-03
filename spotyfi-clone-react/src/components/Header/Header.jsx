@@ -4,9 +4,10 @@ import BaseButton from "../BaseButton/BaseButton";
 import useOpacityHeader from "../../hooks/useOpacityHeader";
 
 
-const Header = ({refMain})=>{
+const Header = ({refMain,href,token,logout})=>{
     const headerRef = useRef()
     useOpacityHeader(refMain,headerRef, 50, 100);
+
 
     return(
         <header className={`relative flex-1 flex items-center justify-between py-[10px] px-[32px] sticky top-0 z-10`}>
@@ -22,11 +23,15 @@ const Header = ({refMain})=>{
                 </a>
             </div>
 
-            <div className=''>
-                <BaseButton classes={'text-gray-400 hover:text-white'}>Sign up</BaseButton>
-                <BaseButton primery>Log in</BaseButton>
 
-            </div>
+            {
+                !token ? <div className=''>
+                    <BaseButton classes={'text-gray-400 hover:text-white'}>Sign up</BaseButton>
+                    <BaseButton href={href} primery>Log in</BaseButton>
+
+                </div>: <BaseButton onClick={logout} primery>Log out</BaseButton>
+            }
+
 
         </header>
     )
