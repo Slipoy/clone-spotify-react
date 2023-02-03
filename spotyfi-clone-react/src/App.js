@@ -47,13 +47,9 @@ function App() {
     const getMusic = async (e)=>{
         e.preventDefault()
 
-        const {data} = await axios.get('https://api.spotify.com/v1/search', {
+        const {data} = await axios.get('https://api.spotify.com/v1/playlists/37i9dQZF1DX4sWSpwq3LiO', {
             headers: {
                 Authorization: `Bearer ${token}`
-            },
-            params: {
-                q: "all",
-                type: 'music'
             }
         })
         console.log(data)

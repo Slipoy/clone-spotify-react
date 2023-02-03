@@ -16,10 +16,13 @@ function BaseButton({primery,accent, classes,onClick: handleClick, children: lab
     }
 
     return (
-        <a href={href} onClick={handleClick}
-                className={`font-semibold rounded-full hover:scale-105 ${typeClasses} ${classes}`}>
-            {label}
+        <a href={href}>
+            <button  onClick={handleClick}
+                     className={`font-semibold rounded-full hover:scale-105 ${typeClasses} ${classes}`}>
+                {label}
+            </button>
         </a>
+
 
     )
 
