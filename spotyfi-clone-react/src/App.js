@@ -1,20 +1,20 @@
 import TheSidebar from "./components/Sidebar/TheSidebar";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
 import Registration from "./components/Registration";
 import {useEffect, useRef} from "react";
 import BaseToast from "./components/BaseToast";
 import React, {useState} from "react";
 import BasePopover from "./components/BasePopover/BasePopover";
-import BaseModal from "./components/BaseModal/BaseModal";
 import useEvent from "./hooks/useEvent";
 import {Routes, Route} from "react-router-dom";
 import MainPlaylist from "./components/MainPlaylist/MainPlaylist";
 import HomeSection from "./components/HomeSection/HomeSection";
 import axios from "axios";
+import {connect} from "react-redux";
+import {setToken} from "./components/Redux/authorization";
+import Header from "./components/Header/Header";
 
 
-function App() {
+function App({setToken, isAuth,token}) {
     const CLIENT_ID = '2371982b3d99427db8d4319404e27aa2';
     const REDIRECT_URI = 'http://localhost:3000'
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
@@ -23,7 +23,7 @@ function App() {
     const href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
 
 
-    const [token, setToken] = useState('');
+// const [token, setToken] = useState('');
     const [searchKey, setSearchKey]= useState()
     useEffect(()=>{
         const hash = window.location.hash;
@@ -47,25 +47,17 @@ function App() {
     const getMusic = async (e)=>{
         e.preventDefault()
 
-        const {data} = await axios.get('https://api.spotify.com/v1/playlists/37i9dQZF1DX4sWSpwq3LiO', {
+        const {data} = await axios.get('https://api.spotify.com/v1/browse/featured-playlists', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(data)
     }
 
 
 
 
 
-
-
-
-
-    document.addEventListener("scroll",()=>{
-        console.log("ello")
-    })
     const contentWrapperRef = useRef()
     let isScrollingEnable = true;
 
@@ -90,21 +82,19 @@ function App() {
             toastRef.current.show();
         })
     }
-
-
     const showPopover = (title, description,target, offset)=> popoverRef.current.show(title, description,target,offset);
 
-
-
+    const mainRef = useRef()
 
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
           <div className="flex overflow-auto">
               <TheSidebar showPopover={showPopover}/>
               <div className="flex-1 overflow-auto" ref={contentWrapperRef}>
+                  <Header href={href}/>
                   <Routes>
                       <Route path='/playlist/:title' element={<MainPlaylist showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
-                      <Route path='/' element={<HomeSection logout={logout} token={token} href={href} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
+                      <Route path='/' element={<HomeSection  showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
                   </Routes>
 
 
@@ -113,14 +103,16 @@ function App() {
           <Registration/>
           <BaseToast test={''} ref={toastRef}/>
           <BasePopover ref={popoverRef}/>
-          <div>
-              <form onSubmit={getMusic}>
-                  <input type="text" onChange={(e)=>setSearchKey(e.target.value)}/>
-                  <button type='submit'>Submit</button>
-              </form>
-          </div>
+          <div onClick={getMusic} className='bg-white w-[100px] h-[100px]'> clock!</div>
       </div>
   );
 }
 
-export default App;
+let mapStateToProps = (state)=>{
+    return{
+        isAuth: state.authorization.isAuth,
+        token:state.authorization.token
+    }
+}
+
+export default connect(mapStateToProps, {setToken})(App);

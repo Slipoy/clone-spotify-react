@@ -11,7 +11,7 @@ import CurrentSection from "./CurrentSection/CurrentSection";
 const Main = ({toggleScrolling, showToast,showPopover},ref)=>{
     return(
         <main ref={ref} className="text-white relative bg-[#121212] ">
-            <div className="h-[275px] bg-gradient-to-b from-[#1f1f1f] to-[#121212] absolute w-full"></div>
+            <div className="h-[275px] bg-gradient-to-b from-[#1f1f1f] to-[#121212] absolute -top-[70px] w-full"></div>
             <Routes>
                 <Route path='/' element={<MainWithPlaylists showToast={showToast} showPopover={showPopover} toggleScrolling={toggleScrolling}/>
                 } />

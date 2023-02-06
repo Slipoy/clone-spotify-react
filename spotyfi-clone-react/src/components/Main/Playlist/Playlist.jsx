@@ -18,6 +18,8 @@ import {NavLink} from "react-router-dom";
 
 
 const Playlist = ({titleNone, frameUrl,coverUrl, title, description, classes, music, toggleScrolling,showToast,showPopover})=>{
+
+
     if (titleNone) classes = ''
     const recommendationModal = useModal();
     const embedModal = useModal()

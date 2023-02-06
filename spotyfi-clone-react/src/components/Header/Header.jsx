@@ -2,6 +2,8 @@ import React, {useRef} from "react"
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import BaseButton from "../BaseButton/BaseButton";
 import useOpacityHeader from "../../hooks/useOpacityHeader";
+import {connect} from "react-redux";
+import {setToken} from "../Redux/authorization";
 
 
 const Header = ({refMain,href,token,logout})=>{
@@ -29,11 +31,18 @@ const Header = ({refMain,href,token,logout})=>{
                     <BaseButton classes={'text-gray-400 hover:text-white'}>Sign up</BaseButton>
                     <BaseButton href={href} primery>Log in</BaseButton>
 
-                </div>: <BaseButton onClick={logout} primery>Log out</BaseButton>
+                </div>: <BaseButton href={href} onClick={logout} primery>Log out</BaseButton>
             }
 
 
         </header>
     )
 }
-export default Header;
+let mapStateToProps = (state)=>{
+    return{
+        isAuth: state.authorization.isAuth,
+        token:state.authorization.token
+    }
+}
+
+export default connect(mapStateToProps, {setToken})(Header);

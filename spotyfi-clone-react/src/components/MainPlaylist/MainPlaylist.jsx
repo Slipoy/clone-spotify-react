@@ -7,7 +7,6 @@ import Header from "../Header/Header";
 function MainPlaylist({showPopover,showToast, toggleScrolling}){
     return(
         <>
-            <Header/>
             <div className="h-screen text-white bg-white relative ">
                 <div className="h-[275px] bg-white absolute w-full"></div>
 

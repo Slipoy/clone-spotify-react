@@ -1,13 +1,18 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {playListData} from "../../../musicData";
 import Playlist from "../Playlist/Playlist";
 import {NavLink} from "react-router-dom";
 import {withRouter} from "../../../hooks/withRouter";
+import axios from "axios";
+import {connect} from "react-redux";
+import {setToken} from "../../Redux/authorization";
 
 
 
 
-function PlaylistSection({showToast, showPopover,toggleScrolling, title}){
+function PlaylistSection({showToast, showPopover,toggleScrolling, title, token, playlist}){
+
+
     return(
         <div className="relative pt-[24px] pb-[48px] px-[32px] space-y-9">
             <div>
@@ -23,7 +28,7 @@ function PlaylistSection({showToast, showPopover,toggleScrolling, title}){
                 </div>
                 <div className="grid grid-cols-main gap-5">
                     {
-                        playListData.map(item => <Playlist showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} key={item.title} {...item}/>)
+                        playlist && playlist.map(item => <Playlist showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} key={item.title} {...item}/>)
                     }
 
                 </div>
@@ -33,4 +38,11 @@ function PlaylistSection({showToast, showPopover,toggleScrolling, title}){
 }
 
 
-export default PlaylistSection;
+let mapStateToProps = (state)=>{
+    return{
+        isAuth: state.authorization.isAuth,
+        token:state.authorization.token
+    }
+}
+
+export default connect(mapStateToProps, {setToken})(PlaylistSection);
