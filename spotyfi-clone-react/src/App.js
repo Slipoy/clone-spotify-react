@@ -10,11 +10,12 @@ import MainPlaylist from "./components/MainPlaylist/MainPlaylist";
 import HomeSection from "./components/HomeSection/HomeSection";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setToken} from "./components/Redux/authorization";
+import {deleteToken, setToken} from "./components/Redux/authorization";
 import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
 
 
-function App({setToken, isAuth,token}) {
+function App({setToken, isAuth,token,deleteToken}) {
     const CLIENT_ID = '2371982b3d99427db8d4319404e27aa2';
     const REDIRECT_URI = 'http://localhost:3000'
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
@@ -26,6 +27,7 @@ function App({setToken, isAuth,token}) {
 // const [token, setToken] = useState('');
     const [searchKey, setSearchKey]= useState()
     useEffect(()=>{
+        window.localStorage.removeItem('token')
         const hash = window.location.hash;
         let token = window.localStorage.getItem('token');
         if (!token && hash){
@@ -39,8 +41,9 @@ function App({setToken, isAuth,token}) {
         setToken(token)
     },[])
 
-    const logout = ()=>{
-        setToken('');
+    const logout = (e)=>{
+        e.preventDefault()
+        deleteToken()
         window.localStorage.removeItem('token')
     }
 
@@ -52,6 +55,7 @@ function App({setToken, isAuth,token}) {
                 Authorization: `Bearer ${token}`
             }
         })
+        console.log(data)
     }
 
 
@@ -91,13 +95,8 @@ function App({setToken, isAuth,token}) {
           <div className="flex overflow-auto">
               <TheSidebar showPopover={showPopover}/>
               <div className="flex-1 overflow-auto" ref={contentWrapperRef}>
-                  <Header href={href}/>
-                  <Routes>
-                      <Route path='/playlist/:title' element={<MainPlaylist showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
-                      <Route path='/' element={<HomeSection  showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} />} />
-                  </Routes>
-
-
+                  <Header logout={logout} href={href}/>
+                  <Main ref={mainRef} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
               </div>
           </div>
           <Registration/>
@@ -115,4 +114,4 @@ let mapStateToProps = (state)=>{
     }
 }
 
-export default connect(mapStateToProps, {setToken})(App);
+export default connect(mapStateToProps, {setToken,deleteToken})(App);

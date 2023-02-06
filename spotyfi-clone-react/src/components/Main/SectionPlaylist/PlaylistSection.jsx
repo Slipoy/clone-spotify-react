@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {playListData} from "../../../musicData";
 import Playlist from "../Playlist/Playlist";
 import {NavLink} from "react-router-dom";
-import {withRouter} from "../../../hooks/withRouter";
-import axios from "axios";
+
 import {connect} from "react-redux";
 import {setToken} from "../../Redux/authorization";
 
 
 
 
-function PlaylistSection({showToast, showPopover,toggleScrolling, title, token, playlist}){
+function PlaylistSection({showToast, showPopover,toggleScrolling, title, playlist}){
+    console.log(playlist)
 
 
     return(

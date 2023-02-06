@@ -11,7 +11,7 @@ function HomeSection({showPopover,showToast,toggleScrolling,href,token,logout}){
     const mainRef = useRef()
     return(
         <>
-            <Main ref={mainRef} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
+
         </>
 
     )

@@ -31,7 +31,7 @@ const Header = ({refMain,href,token,logout})=>{
                     <BaseButton classes={'text-gray-400 hover:text-white'}>Sign up</BaseButton>
                     <BaseButton href={href} primery>Log in</BaseButton>
 
-                </div>: <BaseButton href={href} onClick={logout} primery>Log out</BaseButton>
+                </div>: <BaseButton onClick={logout} primery>Log out</BaseButton>
             }
 
 

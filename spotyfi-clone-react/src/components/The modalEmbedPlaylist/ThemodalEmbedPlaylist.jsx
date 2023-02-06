@@ -9,7 +9,7 @@ import ConfigFrame from "./ConfigFrame";
 
 
 
-function ThemodalEmbedPlaylist({onClose:handleClose,frameUrl, music}){
+function ThemodalEmbedPlaylist({onClose:handleClose,spotifyUrl, music}){
     const [textFrame,setTextFrame]=useState(null)
     const [agreement, setAgreement] = useState(false)
     const [classes, setClasses] = useState('')
@@ -48,7 +48,7 @@ return(
     <BaseModal classes='w-[660px] bg-neutral-900 gap-3 bottom-20' onClose={handleClose}>
         <h1 className='text-3xl pt-8 pb-3 px-8 font-bold leading-relaxed '>Embed playlist</h1>
         <ConfigFrame sizeFrame={sizeFrame} changeSize={handlerChange}/>
-        <MusicFrame frameUrl={frameUrl} size={sizeFrame} getTextFrame={getTextFrame}/>
+        <MusicFrame spotifyUrl={spotifyUrl} size={sizeFrame} getTextFrame={getTextFrame}/>
         <div className='py-6 px-8 text-neutral-500 text-[13px]'>
             Lorem ipsum dolor sit amet,<a href="/" className='text-white font-bold hover:underline'>consectetur
             adipisicing elit.</a> Accusantium at aut nihil quod tempora velit?

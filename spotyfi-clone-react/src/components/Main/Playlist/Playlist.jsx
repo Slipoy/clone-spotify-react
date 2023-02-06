@@ -17,7 +17,7 @@ import {NavLink} from "react-router-dom";
 
 
 
-const Playlist = ({titleNone, frameUrl,coverUrl, title, description, classes, music, toggleScrolling,showToast,showPopover})=>{
+const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, music, toggleScrolling,showToast,showPopover})=>{
 
 
     if (titleNone) classes = ''
@@ -40,14 +40,14 @@ const Playlist = ({titleNone, frameUrl,coverUrl, title, description, classes, mu
 
     return (
         <>
-            <NavLink to={"/playlist/" + title}
+            <NavLink to={"/playlist/" + name}
                className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
                onContextMenu={openMenu} >
                 <div className="relative">
-                    <PlaylistCover url={coverUrl}/>
+                    <PlaylistCover url={images}/>
                     <PlaylistBtn/>
                 </div>
-                <PlaylistTitle title={title}/>
+                <PlaylistTitle title={name}/>
                 <PlaylistDescription description={description}/>
                 {
                     isOpenMenu && <PlaylistContextMenu openEmbedModal={embedModal.open} openRecomModal={recommendationModal.open} isOpenMenu={isOpenMenu} showPopover={showPopover} closeMenu={closeMenu} ref={menuRef} showToast={showToast}/>
@@ -58,7 +58,7 @@ const Playlist = ({titleNone, frameUrl,coverUrl, title, description, classes, mu
                 recommendationModal.isOpen && <TheModalRecommendation onClose={recommendationModal.close}/>
             }
             {
-                embedModal.isOpen && <ThemodalEmbedPlaylist frameUrl={frameUrl} onClose={embedModal.close}/>
+                embedModal.isOpen && <ThemodalEmbedPlaylist spotifyUrl={spotifyUrl} onClose={embedModal.close}/>
             }
 
 
