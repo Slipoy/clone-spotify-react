@@ -5,39 +5,51 @@ import useEvent from "./useEvent";
 
 
 
-function useOpacityHeader(main, header, startOpacity = 80, endOpacity = 100) {
-    const startCoordinateForOpacity = startOpacity;
-    const endCoordinateForOpacity = endOpacity;
-    function handleScrollCoordinate(main, header) {
-        let pointMainTop = main.current.getBoundingClientRect().top;
-        let pointHeaderBottom = header.current.getBoundingClientRect().bottom;
-        let coordinate = pointHeaderBottom - pointMainTop;
-        return coordinate
-    }
-    function handleOpacity(value) {
-        return value / 100;
-    }
-    function changeOpacityForElement(element,value){
-        element.style.opacity = value
-    }
-    useEffect(() => {
-        changeOpacityForElement(header.current, handleOpacity(startOpacity))
+function useOpacityHeader(contentWrapperRef,headerRef) {
+
+
+    let scrollPos = 0;
+    let startOpacityValue = 0
+    let scroll = null
+    const target = contentWrapperRef.current;
+    const changeStyleOpacity = (target)=> target.style.opacity = startOpacityValue
+    const changeValueOpacity = (vector, target)=>{
+        if (vector) {
+            startOpacityValue += 0.015
+            changeStyleOpacity(target);
+        } else {
+            startOpacityValue -= 0.025
+            changeStyleOpacity(target)
         }
-    )
-    const handlerOpacity = () => {
-        const coordinate = handleScrollCoordinate(main, header)
-        const el = header.current
-        if (coordinate === 0){
-            changeOpacityForElement(el, handleOpacity(startOpacity));
-        }
-        if (coordinate >= startCoordinateForOpacity && coordinate < endCoordinateForOpacity) {
-            changeOpacityForElement(el, handleOpacity(coordinate));
-        }
-        if (coordinate > endCoordinateForOpacity) {
-            changeOpacityForElement(el, handleOpacity(endOpacity))
-        }
+
     }
-    useEvent("wheel", handlerOpacity);
+    const scrollDown = ()=> scroll > scrollPos;
+    const handleOpacityHeader = ()=>{
+        const header = headerRef.current;
+        scroll = target.scrollTop;
+        if (scroll < 55) {
+            startOpacityValue = 0;
+            changeStyleOpacity(header)
+            return;
+        }else if (scroll > 130){
+            setTimeout(function Func (){
+                if (startOpacityValue >= 1)return
+                changeValueOpacity(scrollDown,header)
+                setTimeout(Func,6)
+            },6)
+            return;
+
+        }else changeValueOpacity(scrollDown(),header)
+        scrollPos = scroll;
+
+    }
+
+
+
+
+
+
+    return {handleOpacityHeader}
 
 }
 export default useOpacityHeader;

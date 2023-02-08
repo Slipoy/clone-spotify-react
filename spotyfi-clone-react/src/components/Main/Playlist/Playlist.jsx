@@ -40,7 +40,7 @@ const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, mus
 
     return (
         <>
-            <NavLink to={"/playlist/" + name}
+            <NavLink to={"/music/test"}
                className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
                onContextMenu={openMenu} >
                 <div className="relative">

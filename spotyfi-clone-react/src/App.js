@@ -6,16 +6,19 @@ import React, {useState} from "react";
 import BasePopover from "./components/BasePopover/BasePopover";
 import useEvent from "./hooks/useEvent";
 import {Routes, Route} from "react-router-dom";
-import MainPlaylist from "./components/MainPlaylist/MainPlaylist";
-import HomeSection from "./components/HomeSection/HomeSection";
 import axios from "axios";
 import {connect} from "react-redux";
 import {deleteToken, setToken} from "./components/Redux/authorization";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
+import PlaylistMusic from "./components/Main/Playlist/PlaylistMusic/PlaylistMusic";
+import useOpacityHeader from "./hooks/useOpacityHeader";
 
 
 function App({setToken, isAuth,token,deleteToken}) {
+    document.addEventListener("scroll", ()=>{console.log("heello")})
+
+    const [test]= useState(false)
     const CLIENT_ID = '2371982b3d99427db8d4319404e27aa2';
     const REDIRECT_URI = 'http://localhost:3000'
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
@@ -24,7 +27,6 @@ function App({setToken, isAuth,token,deleteToken}) {
     const href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
 
 
-// const [token, setToken] = useState('');
     const [searchKey, setSearchKey]= useState()
     useEffect(()=>{
         window.localStorage.removeItem('token')
@@ -66,16 +68,25 @@ function App({setToken, isAuth,token,deleteToken}) {
     let isScrollingEnable = true;
 
     const handleScrolling = (e)=>{
-        if (isScrollingEnable) return
+
+        if (isScrollingEnable){
+            return
+
+
+        }
         e.preventDefault()
         e.stopPropagation()
 
     }
+
+
     useEvent('wheel',handleScrolling, true, ()=>contentWrapperRef.current)
     const toggleScrolling = (isEnable)=>{
         isScrollingEnable = isEnable
 
     }
+
+
 
     //for modal wind
 
@@ -88,21 +99,35 @@ function App({setToken, isAuth,token,deleteToken}) {
     }
     const showPopover = (title, description,target, offset)=> popoverRef.current.show(title, description,target,offset);
 
-    const mainRef = useRef()
+    const headerRef = useRef()
+
+    const {handleOpacityHeader} = useOpacityHeader(contentWrapperRef,headerRef)
+    useEvent('scroll',handleOpacityHeader, true, ()=>contentWrapperRef.current)
 
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
           <div className="flex overflow-auto">
               <TheSidebar showPopover={showPopover}/>
               <div className="flex-1 overflow-auto" ref={contentWrapperRef}>
-                  <Header logout={logout} href={href}/>
-                  <Main ref={mainRef} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
+                  <Header headerRef={headerRef} logout={logout} href={href}/>
+                  <Routes>
+                      <Route path='/clone-spotify-react/*' element={<Main showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>}/>
+                      <Route path='/clone-spotify-react/playlist' element={<PlaylistMusic/>}/>
+                  </Routes>
+                  {/*<Routes>*/}
+                  {/*    <Route path='/'  element={<PlaylistMusic/>}/>*/}
+                  {/*</Routes>*/}
+
+
               </div>
           </div>
           <Registration/>
           <BaseToast test={''} ref={toastRef}/>
           <BasePopover ref={popoverRef}/>
-          <div onClick={getMusic} className='bg-white w-[100px] h-[100px]'> clock!</div>
+          {
+              test && <div onClick={getMusic} className='bg-white w-[100px] h-[100px]'> clock!</div>
+          }
+
       </div>
   );
 }

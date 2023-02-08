@@ -101,24 +101,27 @@ export const playlistData = [
         classes: '',
         textFrame: '<iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DWZeKCadgRdKQ?utm_source=generator" width="100%" height="352" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
         name:"Music for a Workday",
-        description:'"A playlist to get you through your whole workday."',
+        description:'A playlist to get you through your whole workday.',
         images:'https://i.scdn.co/image/ab67706f000000034de77acbe943df267598e50c',
-        spotifyUrl: '"37i9dQZF1DXcsT4WKI8W8r"'
+        spotifyUrl: '37i9dQZF1DXcsT4WKI8W8r'
 
     },
     {
+        classes: 'hidden sm:block',
         description: "Piano music for fall vibes and autumnal moods.",
         images:"https://i.scdn.co/image/ab67706f0000000377978d96d638e2cf375495f4",
         name: "Autumn Piano",
         spotifyUrl: "37i9dQZF1DWUXyq4CJGeZ5",
     },
     {
+        classes: 'hidden lg:block',
         description: "The biggest songs of the 1970s.",
         images: "https://i.scdn.co/image/ab67706f00000003e973c34650c72b5ad115fc3a",
         name: "All Out 70s",
         spotifyUrl: "37i9dQZF1DWTJ7xPn4vNaz",
     },
     {
+        classes: 'hidden xl:block',
         description:"New music from GloRilla and NLE Choppa. ",
     images:"https://i.scdn.co/image/ab67706f00000003a031edb77ef3c06a767bca45",
     name: "RapCaviar",
@@ -127,12 +130,15 @@ export const playlistData = [
 },
 
     {
+        classes: 'hidden 2xl:block',
         description: "Concentration & Motivation! Focus-enhancing piano music for your study session.",
         images : "https://i.scdn.co/image/ab67706f0000000346bd1bd5d9990da7dae58ccc",
         name : "Intense Studying",
         spotifyUrl: "37i9dQZF1DX8NTLI2TtZa6"
     },
     {
+
+        classes: 'hidden 3xl:block',
         description:
             "Mode: Turnt",
         images:
@@ -142,6 +148,8 @@ export const playlistData = [
         spotifyUrl:
             "37i9dQZF1DWY4xHQp97fN6",
     }, {
+
+        classes: 'hidden 4xl:block',
         description:
             "Устраивайся поудобнее и наслаждайся спокойными хитами.",
         images:
@@ -152,6 +160,7 @@ export const playlistData = [
             "37i9dQZF1DX4WYpdgoIcn6",
     },
     {
+        classes: 'hidden 6xl:block',
         description:
             "Jazz that captures the essence of autumn.",
         images:
@@ -162,6 +171,7 @@ export const playlistData = [
             "37i9dQZF1DX7UE7qrnkvsf",
     },
     {
+        classes: 'hidden 6xl:block',
         description:
             "Спекотні хіти сьогодення. Обкладинка:DOROFEEVA",
         images:
@@ -173,6 +183,7 @@ export const playlistData = [
 
     },
     {
+        classes: 'hidden 6xl:block',
         description:
             "Your daily dose of soul-infused music! Cover: Adi Oasis",
         images:
@@ -183,6 +194,7 @@ export const playlistData = [
             "37i9dQZF1DWSXWSaQmvWOB",
     },
     {
+        classes: 'hidden 6xl:block',
         description:
             "These songs rocked the 90s. Cover: Nirvana",
         images:
@@ -194,6 +206,7 @@ export const playlistData = [
 
     },
     {
+        classes: 'hidden 6xl:block',
         description:
             "Unwind and let the afternoon unfold.",
         images:
