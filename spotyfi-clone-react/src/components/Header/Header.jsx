@@ -13,8 +13,8 @@ const Header = ({headerRef,href,token,logout})=>{
 
 
     return(
-        <header className={`bg-[#00000080]/50 relative flex-1 flex items-center justify-between py-[10px] px-[32px] sticky top-0 z-10`}>
-            <div ref={headerRef}  className='opacity-0 absolute top-0 left-0 w-full h-full -z-10 bg-[#070707]'></div>
+        <header className={`relative flex-1 flex items-center justify-between py-[10px] px-[32px] sticky top-0 z-10`}>
+            <div ref={headerRef} className='opacity-0 absolute top-0 left-0 w-full h-full -z-10 bg-[#070707]'></div>
             <div className="flex">
                 <a href="spotyfi-clone-react/src/components/Header/Header#"
                    className="mr-[8px] text-[#969696] p-1 cursor-not-allowed">

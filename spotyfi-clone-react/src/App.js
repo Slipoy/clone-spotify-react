@@ -16,9 +16,7 @@ import useOpacityHeader from "./hooks/useOpacityHeader";
 
 
 function App({setToken, isAuth,token,deleteToken}) {
-    document.addEventListener("scroll", ()=>{console.log("heello")})
-
-    const [test]= useState(false)
+    const [test]= useState(true)
     const CLIENT_ID = '2371982b3d99427db8d4319404e27aa2';
     const REDIRECT_URI = 'http://localhost:3000'
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
