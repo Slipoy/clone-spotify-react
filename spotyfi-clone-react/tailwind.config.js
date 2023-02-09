@@ -17,6 +17,9 @@ module.exports = {
       gridTemplateColumns:{
         "main": "repeat(auto-fill, minmax(208px, 1fr))"
       },
+      boxShadow: {
+        '3xl': '0 4px 60px rgba(0, 0, 0, 0.5)',
+      }
     },
   },
   plugins: [
