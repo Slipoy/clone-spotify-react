@@ -50,7 +50,7 @@ function App({setToken, isAuth,token,deleteToken}) {
     const getMusic = async (e)=>{
         e.preventDefault()
 
-        const {data} = await axios.get('https://api.spotify.com/v1/browse/featured-playlists', {
+        const {data} = await axios.get('https://api.spotify.com/v1/browse/featured-playlists/', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
