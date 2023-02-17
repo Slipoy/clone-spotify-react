@@ -13,12 +13,15 @@ function useContextSubMenu(onClose, ref){
 
 
     const getMenuPositionXclasses = ()=>{
-        const menuItem = ref.current;
-        const menuWidth = menuItem.offsetWidth;
-        const windowWidth = window.innerWidth;
-        const menuItemAndCoordinate = menuItem.getBoundingClientRect().right;
-        const shouldMoveLeft = menuWidth > windowWidth - menuItemAndCoordinate;
-        return shouldMoveLeft ? 'right-full' : 'left-full'
+        if (ref){
+            const menuItem = ref.current;
+            const menuWidth = menuItem.offsetWidth;
+            const windowWidth = window.innerWidth;
+            const menuItemAndCoordinate = menuItem.getBoundingClientRect().right;
+            const shouldMoveLeft = menuWidth > windowWidth - menuItemAndCoordinate;
+            return shouldMoveLeft ? 'right-full' : 'left-full'
+        }
+
     };
     // const getMenuPositionYclasses = ()=>{
     //     const menuItem = menuItemRef.current;

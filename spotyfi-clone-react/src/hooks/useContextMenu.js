@@ -14,7 +14,6 @@ const useContextMenu = () =>{
     useClickAway(close,ref, isOpen)
     const open =(e)=>{
         e.preventDefault()
-
         move(e.clientX, e.clientY)
 
         setIsOpen(!isOpen)

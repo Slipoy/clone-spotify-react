@@ -9,6 +9,11 @@ import TheModalRecommendation from "../../BaseModal/TheModalRecommendation";
 import useModal from "../../../hooks/useModal";
 import ThemodalEmbedPlaylist from "../../The modalEmbedPlaylist/ThemodalEmbedPlaylist";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {connect} from "react-redux";
+import {setToken} from "../../Redux/authorization";
+import {setCurrentSection} from "../../Redux/CurrentSection";
+import {setCurrentPlaylist} from "../../Redux/basePlaylist";
 
 
 
@@ -17,7 +22,7 @@ import {NavLink} from "react-router-dom";
 
 
 
-const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, music, toggleScrolling,showToast,showPopover})=>{
+const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, music, toggleScrolling,showToast,showPopover,token,setCurrentPlaylist})=>{
 
 
     if (titleNone) classes = ''
@@ -30,6 +35,7 @@ const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, mus
         ref:menuRef,
         close: closeMenu
     } = useMenu(toggleScrolling)
+    console.log(menuRef)
 
 
     useLayoutEffect(() => toggleScrolling(!isOpenMenu))
@@ -38,9 +44,11 @@ const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, mus
     const test = document.querySelector("nav a:nth-child(4)")
 
 
+
     return (
         <>
-            <NavLink to={"/clone-spotify-react/playlist"}
+            <NavLink to={"/clone-spotify-react/playlist/" + spotifyUrl}
+
                className={`relative p-4 rounded-mb  duration-200 group ${classes} ${bgClasses}`}
                onContextMenu={openMenu} >
                 <div className="relative">
@@ -58,7 +66,7 @@ const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, mus
                 recommendationModal.isOpen && <TheModalRecommendation onClose={recommendationModal.close}/>
             }
             {
-                embedModal.isOpen && <ThemodalEmbedPlaylist spotifyUrl={spotifyUrl} onClose={embedModal.close}/>
+                embedModal.isOpen && <ThemodalEmbedPlaylist spotifyUrl={`playlist/${spotifyUrl}`} onClose={embedModal.close}/>
             }
 
 
@@ -67,4 +75,11 @@ const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, mus
 
     )
 }
-export default Playlist
+let mapStateToProps = (state)=>{
+    return{
+        isAuth: state.authorization.isAuth,
+        token:state.authorization.token
+    }
+}
+
+export default connect(mapStateToProps, {setToken,setCurrentPlaylist})(Playlist);

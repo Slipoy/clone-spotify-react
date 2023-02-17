@@ -19,6 +19,9 @@ function useContextMenuPosition(isOpenContextMenu, ref){
         const menuWidth = ref.current.offsetWidth;
         const shouldMoveLeft = menuWidth > window.innerWidth - clickPosition.x;
         ref.current.style.left = shouldMoveLeft ? `${clickPosition.x - menuWidth}px`: `${clickPosition.x}px`
+        console.log(menuWidth)
+        console.log(clickPosition.x)
+        console.log(clickPosition.x - menuWidth)
     }
     function updateContextMenuVerticalPosition(){
         const menuHeight = ref.current.offsetHeight;

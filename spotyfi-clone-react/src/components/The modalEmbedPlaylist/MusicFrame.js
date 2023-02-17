@@ -18,7 +18,7 @@ function MusicFrame({getTextFrame,size,spotifyUrl}){
     return (
         <div ref={ref} className='flex justify-center items-center w-[600px] h-[352px] max-h-[352px] rounded-2xl mx-auto overflow-hidden'>
             <iframe
-                src={`https://open.spotify.com/embed/playlist/${spotifyUrl}?utm_source=generator`}
+                src={`https://open.spotify.com/embed/${spotifyUrl}?utm_source=generator`}
                 width={width + '%'} height={size.height} frameBorder="0" allowFullScreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"></iframe>

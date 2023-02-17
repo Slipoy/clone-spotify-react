@@ -1,13 +1,15 @@
-import React from "react";
+import React, {forwardRef} from "react";
 
 
 
 
-function BaseHelper(children){
+function BaseHelper({children},ref){
     return(
-        <div className='bg-[#ffffff1a] absolute top-0 left-1/2 px-2 py-1 text-[12px] rounded shadow-xl '>
-            Добавить в очередь
+        <div ref={ref} className='fixed truncate bg-[#ffffff1a] px-2 py-1 text-[12px] rounded shadow-xl'>
+            {children}
         </div>
     )
 }
-export default BaseHelper;
+export default forwardRef(BaseHelper);
+
+//-top-8 -left-8

@@ -15,8 +15,8 @@ import PlaylistMusic from "./components/Main/Playlist/PlaylistMusic/PlaylistMusi
 import useOpacityHeader from "./hooks/useOpacityHeader";
 
 
-function App({setToken, isAuth,token,deleteToken}) {
-    const [test]= useState(true)
+function App({setToken, isAuth,token,deleteToken,playlists}) {
+    const [test]= useState(false)
     const CLIENT_ID = '2371982b3d99427db8d4319404e27aa2';
     const REDIRECT_URI = 'http://localhost:3000'
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
@@ -50,7 +50,7 @@ function App({setToken, isAuth,token,deleteToken}) {
     const getMusic = async (e)=>{
         e.preventDefault()
 
-        const {data} = await axios.get('https://api.spotify.com/v1/browse/featured-playlists/', {
+        const {data} = await axios.get('https://api.spotify.com/v1/playlists/37i9dQZF1DX4sWSpwq3LiO', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -101,6 +101,7 @@ function App({setToken, isAuth,token,deleteToken}) {
 
     const {handleOpacityHeader} = useOpacityHeader(contentWrapperRef,headerRef)
     useEvent('scroll',handleOpacityHeader, true, ()=>contentWrapperRef.current)
+    console.log(playlists)
 
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
@@ -110,7 +111,7 @@ function App({setToken, isAuth,token,deleteToken}) {
                   <Header headerRef={headerRef} logout={logout} href={href}/>
                   <Routes>
                       <Route path='/clone-spotify-react/*' element={<Main showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>}/>
-                      <Route path='/clone-spotify-react/playlist' element={<PlaylistMusic/>}/>
+                      <Route path='/clone-spotify-react/playlist/:id' element={<PlaylistMusic showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>}/>
                   </Routes>
                   {/*<Routes>*/}
                   {/*    <Route path='/'  element={<PlaylistMusic/>}/>*/}
@@ -133,7 +134,8 @@ function App({setToken, isAuth,token,deleteToken}) {
 let mapStateToProps = (state)=>{
     return{
         isAuth: state.authorization.isAuth,
-        token:state.authorization.token
+        token:state.authorization.token,
+        playlists: state.homePagePlaylists.currentPlaylist
     }
 }
 
