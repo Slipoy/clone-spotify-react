@@ -1,8 +1,5 @@
-import React from "react";
-import {compose} from "redux";
+import React, {useState} from "react";
 import {connect} from "react-redux";
-import {setCurrentPlaylist} from "../../../../Redux/basePlaylist";
-import {withRouter} from "../../../../../hooks/withRouter";
 import FavoritesBtn from "../InteractiveMenu/FavoritesBtn";
 import ContextMenu from "../InteractiveMenu/ContextMenu";
 import useModal from "../../../../../hooks/useModal";
@@ -11,6 +8,9 @@ import {useLayoutEffect} from "react";
 import ThemodalEmbedPlaylist from "../../../../The modalEmbedPlaylist/ThemodalEmbedPlaylist";
 import TheModalRecommendation from "../../../../BaseModal/TheModalRecommendation";
 import PlaylistContextMenu from "../../PlaylistContextMenu";
+import useFocusStyleMusic from "../../../../../hooks/useFocusStyleMusic";
+import {PlayIcon} from "@heroicons/react/24/solid";
+import PlayBtn from "../../../../PlayButton/PlayBtn";
 
 
 
@@ -23,11 +23,40 @@ function Music({track, id, toggleScrolling, showToast,showPopover}){
         ref:menuRef,
         close: closeMenu
     } = useContextMenu(toggleScrolling)
-    useLayoutEffect(() => toggleScrolling(!isOpenMenu))
+    useLayoutEffect(() => toggleScrolling(!isOpenMenu));
+
+// добавление песни в избанное
+    const [isFavorites, setFavorite] = useState(false);
+    const addToFavoritesBar = ()=>{
+        setFavorite(!isFavorites)
+    }
+
+// хук для изменения фона при наведении и при клике
+    const {handleCurrent,
+        enterCurrent,
+        leaveCurrent,
+        isCurrentFocus,
+        classesCurrent,
+        isHover,
+        ref} = useFocusStyleMusic();
+
+
+    //условия при кторорых видны кнопки избраного контекста и плеера
+
+    const showFavoriteBtn = isCurrentFocus || isHover || isFavorites;
+    const showOtherBtn = isCurrentFocus || isHover;
+
+
     return(
-        <div className='grid grid-cols-music h-[56px] rounded px-8 group hover:bg-neutral-600/70'>
+        <div ref={ref} onClick={handleCurrent} onMouseEnter={enterCurrent} onMouseLeave={leaveCurrent} className={`grid grid-cols-music h-[56px] rounded px-8 ${classesCurrent}`}>
             <div className='flex items-center gap-5'>
-                <span>{id + 1}</span>
+                <span className='w-5 h-5'>
+                    {
+                        showOtherBtn ? <PlayBtn/> : id + 1
+                    }
+
+                </span>
+
                 <div className='w-[40px] h-[40px]'><img src={track.album.images[2].url} alt=""/></div>
                 <div className='flex flex-col justify-between'>
                     <span className='text-white text-[16px] '>{track.name}</span>
@@ -42,13 +71,19 @@ function Music({track, id, toggleScrolling, showToast,showPopover}){
                 {track.album.name}
             </div>
             <div className='relative flex justify-end items-center'>
-                <FavoritesBtn showToast={showToast} size={'w-5 h-5 hidden group-hover:block'}/>
+                {
+                    showFavoriteBtn &&  <FavoritesBtn addToFavoritesBar={addToFavoritesBar} showToast={showToast} size={'w-5 h-5'}/>
+                }
+
                     <span className={'ml-10 mr-2'}>
                         3:21
                     </span>
-                <div className={'absolute -right-8 w-8 h-8 hidden group-hover:block'}>
-                    <ContextMenu openMenu={openMenu}/>
-                </div>
+                {
+                    showOtherBtn && <div className={'absolute -right-8 w-8 h-8'}>
+                        <ContextMenu openMenu={openMenu}/>
+                    </div>
+                }
+
 
             </div>
             {
@@ -75,3 +110,4 @@ let mapStateToProps = (state)=>{
 }
 
 export default connect(mapStateToProps, {})(Music);
+//hover:bg-neutral-600/70

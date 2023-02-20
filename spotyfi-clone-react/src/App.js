@@ -101,7 +101,6 @@ function App({setToken, isAuth,token,deleteToken,playlists}) {
 
     const {handleOpacityHeader} = useOpacityHeader(contentWrapperRef,headerRef)
     useEvent('scroll',handleOpacityHeader, true, ()=>contentWrapperRef.current)
-    console.log(playlists)
 
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>

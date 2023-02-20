@@ -8,7 +8,7 @@ import useEvent from "./useEvent";
 function useOpacityHeader(contentWrapperRef,headerRef) {
 
 const [opacity, setOpacity] = useState(0)
-    let scrollPos = 0;
+    let scrollPos = 100;
     let startOpacityValue = 0.5
     let scroll = null
     const target = contentWrapperRef.current;

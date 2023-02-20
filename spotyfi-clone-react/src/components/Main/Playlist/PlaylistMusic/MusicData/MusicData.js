@@ -10,8 +10,8 @@ import {withRouter} from "../../../../../hooks/withRouter";
 
 function MusicData({playlists, showToast, showPopover,toggleScrolling}){
     return(
-        <div className='relative flex flex-col w-full px-8 text-[#B3B3B3] text-[12px] font-medium tracking-widest' >
-            <div className='grid grid-cols-music h-[30px] px-8 mb-6 border-b border-neutral-400'>
+        <div className='flex flex-col w-full px-8 text-[#B3B3B3] text-[12px] font-medium tracking-widest' >
+            <div className='sticky top-[68px] grid grid-cols-music h-[30px] px-8 mb-6 border-b border-neutral-400'>
                 <div className='flex gap-5 w-1/3'>
                     <span>#</span>
                     <span className=''>НАЗВАНИЕ</span>

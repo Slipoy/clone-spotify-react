@@ -7,7 +7,7 @@ import {useState} from "react";
 
 
 
-function FavoritesBtn({size,showToast}){
+function FavoritesBtn({size,showToast,addToFavoritesBar}){
     const {
         startOpenHelperMenu,
         closeHelperMenu,
@@ -18,10 +18,12 @@ function FavoritesBtn({size,showToast}){
     const addToFavorites = ()=> {
         if (classes === ""){
             setClasses("fill-green-500 text-green-500")
-            showToast("Added to favorites")
+            showToast("Added to favorites");
+            addToFavoritesBar()
         }else {
             setClasses('');
             showToast("Delete from favorites")
+            addToFavoritesBar()
         }
 
 
@@ -30,8 +32,7 @@ function FavoritesBtn({size,showToast}){
         <div onClick={()=>{
             closeHelperMenu()
             addToFavorites()
-            showToast("test")
-
+            showToast("test");
         }} onMouseEnter={startOpenHelperMenu} onMouseLeave={closeHelperMenu} className="relative hover:text-white">
             <HeartIcon className={`${size} ${classes}`}/>
             {
