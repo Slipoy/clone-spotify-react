@@ -48,7 +48,7 @@ function Music({track, id, toggleScrolling, showToast,showPopover}){
 
 
     return(
-        <div ref={ref} onClick={handleCurrent} onMouseEnter={enterCurrent} onMouseLeave={leaveCurrent} className={`grid grid-cols-music h-[56px] rounded px-8 ${classesCurrent}`}>
+        <div ref={ref} onClick={handleCurrent} onMouseEnter={enterCurrent} onMouseLeave={leaveCurrent} className={`grid grid-cols-music h-[56px] rounded px-16 ${classesCurrent}`}>
             <div className='flex items-center gap-5'>
                 <span className='w-5 h-5'>
                     {

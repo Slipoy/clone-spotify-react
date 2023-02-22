@@ -98,24 +98,26 @@ function App({setToken, isAuth,token,deleteToken,playlists}) {
     const showPopover = (title, description,target, offset)=> popoverRef.current.show(title, description,target,offset);
 
     const headerRef = useRef()
-
     const {handleOpacityHeader} = useOpacityHeader(contentWrapperRef,headerRef)
     useEvent('scroll',handleOpacityHeader, true, ()=>contentWrapperRef.current)
+
+
+    const playBtnRef = useRef();
+
+
+
+
 
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
           <div className="flex overflow-auto">
               <TheSidebar showPopover={showPopover}/>
               <div className="flex-1 overflow-auto" ref={contentWrapperRef}>
-                  <Header headerRef={headerRef} logout={logout} href={href}/>
+                  <Header playBtnRef={playBtnRef} contentWrapperRef={contentWrapperRef} headerRef={headerRef} logout={logout} href={href}/>
                   <Routes>
                       <Route path='/clone-spotify-react/*' element={<Main showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>}/>
-                      <Route path='/clone-spotify-react/playlist/:id' element={<PlaylistMusic showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>}/>
+                      <Route path='/clone-spotify-react/playlist/:id' element={<PlaylistMusic playBtnRef={playBtnRef} contentWrapperRef={contentWrapperRef} headerRef={headerRef} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>}/>
                   </Routes>
-                  {/*<Routes>*/}
-                  {/*    <Route path='/'  element={<PlaylistMusic/>}/>*/}
-                  {/*</Routes>*/}
-
 
               </div>
           </div>

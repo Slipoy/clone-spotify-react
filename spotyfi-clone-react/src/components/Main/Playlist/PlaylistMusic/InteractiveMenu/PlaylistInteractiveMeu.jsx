@@ -13,7 +13,7 @@ import PlayBtn from "./PlayBtn";
 
 
 
-function PlaylistInteractiveMeu({showPopover,showToast,toggleScrolling,spotifyUrl}){
+function PlaylistInteractiveMeu({showPopover,showToast,toggleScrolling,spotifyUrl,playBtnRef}){
     const recommendationModal = useModal();
     const embedModal = useModal()
     const {
@@ -26,7 +26,7 @@ function PlaylistInteractiveMeu({showPopover,showToast,toggleScrolling,spotifyUr
     return(
         <div className='relative w-full px-8 py-8 '>
             <div className='flex items-center gap-7 text-[#b3b3b3]'>
-                <PlayBtn/>
+                <PlayBtn playBtnRef={playBtnRef} classes={'w-[56px] h-[56px]'}/>
                 <FavoritesBtn showToast={showToast} size={'w-10 h-10'} />
                 <ContextMenu openMenu={openMenu}/>
             </div>

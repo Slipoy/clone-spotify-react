@@ -1,32 +1,25 @@
 import React from "react";
-import {ClockIcon} from "@heroicons/react/24/outline";
 import Music from "../Music/Music";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {deletePlaylist, setCurrentPlaylist} from "../../../../Redux/basePlaylist";
 import {withRouter} from "../../../../../hooks/withRouter";
+import TitleMusicData from "../../../../TitleMusicData/TitleMusicData";
+import {useRef, useState} from "react";
+import useEvent from "../../../../../hooks/useEvent";
 
 
 
-function MusicData({playlists, showToast, showPopover,toggleScrolling}){
+function MusicData({playlists, showToast, showPopover,toggleScrolling,headerRef,contentWrapperRef}){
+
+
     return(
-        <div className='flex flex-col w-full px-8 text-[#B3B3B3] text-[12px] font-medium tracking-widest' >
-            <div className='sticky top-[68px] grid grid-cols-music h-[30px] px-8 mb-6 border-b border-neutral-400'>
-                <div className='flex gap-5 w-1/3'>
-                    <span>#</span>
-                    <span className=''>НАЗВАНИЕ</span>
-
-                </div>
-                <div className=''>
-                    АЛЬБОМ
-                </div>
-                <div className='flex justify-end'>
-                    <ClockIcon className='w-5 h-5'/>
-                </div>
-            </div>
+        <div className='relative flex flex-col w-full text-[#B3B3B3] text-[12px] font-medium tracking-widest' >
+            <TitleMusicData contentWrapperRef={contentWrapperRef} headerRef={headerRef}/>
             {
                 playlists.tracks && playlists.tracks.map((track, index)=> <Music showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} id={index} key={index} track={track.track}/>)
             }
+            <audio></audio>
         </div>
     )
 

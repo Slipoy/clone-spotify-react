@@ -35,9 +35,6 @@ const Playlist = ({titleNone, spotifyUrl,images, name, description, classes, mus
         ref:menuRef,
         close: closeMenu
     } = useMenu(toggleScrolling)
-    console.log(menuRef)
-
-
     useLayoutEffect(() => toggleScrolling(!isOpenMenu))
     const bgClasses = isOpenMenu ? "bg-[#272727]" :"bg-[#181818] hover:bg-[#272727]"
 

@@ -11,7 +11,7 @@ import homePagePlaylists, {deletePlaylist, setCurrentPlaylist} from "../../../Re
 import MusicData from "./MusicData/MusicData";
 
 
-function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPlaylist,playlists,router}){
+function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPlaylist,playBtnRef,router,headerRef,titleRef, classes,contentWrapperRef}){
     const id = router.params.id
     const [dataLoaded, setDataLoaded] = useState(false)
     useEffect(()=>{
@@ -30,7 +30,7 @@ function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPl
 
 
     },[id])
-    console.log(playlists)
+
 
     return(
         <main className="h-screen text-white relative bg-[#121212]">
@@ -40,8 +40,9 @@ function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPl
                         {/*<div className="bg-gradient-to-b from-[rgba(0,0,0,0)] to-[rgba(0,0,0,.5)] h-full w-full"></div>*/}
                     </div>
                     <HeaderPlaylist/>
-                    <PlaylistInteractiveMeu spotifyUrl={`playlist/${id}`} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
-                    <MusicData showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
+                    <div className="h-[275px] bg-gradient-to-b from-[rgba(144,168,192,.5)] to-[rgba(144,168,192,0)] absolute top-[270px] w-full"></div>
+                    <PlaylistInteractiveMeu playBtnRef={playBtnRef} spotifyUrl={`playlist/${id}`} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
+                    <MusicData contentWrapperRef={contentWrapperRef} classes={classes} titleRef={titleRef} headerRef={headerRef} showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling}/>
                 </>: <div>загрузка</div>
             }
 

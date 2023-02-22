@@ -14,7 +14,6 @@ function ContextMenu({openMenu,playlists}){
         isHelperOpen,
         ref: menuRef
     } = useContextHelper();
-    console.log(menuRef)
 
 
 

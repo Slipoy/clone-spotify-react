@@ -8,7 +8,7 @@ import useEvent from "./useEvent";
 function useOpacityHeader(contentWrapperRef,headerRef) {
 
 const [opacity, setOpacity] = useState(0)
-    let scrollPos = 100;
+    let scrollPos = 0;
     let startOpacityValue = 0.5
     let scroll = null
     const target = contentWrapperRef.current;
@@ -32,11 +32,8 @@ const [opacity, setOpacity] = useState(0)
             changeStyleOpacity(header)
             return;
         }else if (scroll > 130){
-            setTimeout(function Func (){
-                if (startOpacityValue >= 1)return
-                changeValueOpacity(scrollDown,header)
-                setTimeout(Func,6)
-            },6)
+            startOpacityValue = 1;
+            changeStyleOpacity(header)
             return;
 
         }else changeValueOpacity(scrollDown(),header)
