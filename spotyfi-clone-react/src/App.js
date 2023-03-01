@@ -13,6 +13,7 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import PlaylistMusic from "./components/Main/Playlist/PlaylistMusic/PlaylistMusic";
 import useOpacityHeader from "./hooks/useOpacityHeader";
+import Player from "./components/Player/Player";
 
 
 function App({setToken, isAuth,token,deleteToken,playlists}) {
@@ -50,7 +51,7 @@ function App({setToken, isAuth,token,deleteToken,playlists}) {
     const getMusic = async (e)=>{
         e.preventDefault()
 
-        const {data} = await axios.get('https://api.spotify.com/v1/playlists/37i9dQZF1DX4sWSpwq3LiO', {
+        const {data} = await axios.get('https://api.spotify.com/v1/tracks/2M4tVhRXucLE9M3STv21Yi', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -104,9 +105,8 @@ function App({setToken, isAuth,token,deleteToken,playlists}) {
 
     const playBtnRef = useRef();
 
-
-
-
+    const [testPlayer, SetPlayer] = useState(true)
+    // плеер
 
   return (
       <div className='flex flex-col h-screen bg-[#121212]'>
@@ -121,7 +121,10 @@ function App({setToken, isAuth,token,deleteToken,playlists}) {
 
               </div>
           </div>
-          <Registration/>
+          {
+              testPlayer ? <Player/> : <Registration/>
+          }
+
           <BaseToast test={''} ref={toastRef}/>
           <BasePopover ref={popoverRef}/>
           {

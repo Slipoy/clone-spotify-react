@@ -9,9 +9,10 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import homePagePlaylists, {deletePlaylist, setCurrentPlaylist} from "../../../Redux/basePlaylist";
 import MusicData from "./MusicData/MusicData";
+import {addDataTracks} from "../../../Redux/PlayingTrack";
 
 
-function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPlaylist,playBtnRef,router,headerRef,titleRef, classes,contentWrapperRef}){
+function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPlaylist,playBtnRef,router,headerRef,titleRef, classes,contentWrapperRef,addDataTracks}){
     const id = router.params.id
     const [dataLoaded, setDataLoaded] = useState(false)
     useEffect(()=>{
@@ -22,7 +23,8 @@ function PlaylistMusic({showPopover,showToast,toggleScrolling,token,setCurrentPl
                     Authorization: `Bearer ${token}`
                 }
             })
-            setCurrentPlaylist(data)
+            setCurrentPlaylist(data);
+            // addDataTracks(data.tracks.items);
             setDataLoaded(true)
         }
         getMusic()
@@ -60,4 +62,4 @@ let mapStateToProps = (state)=>{
     }
 }
 
-export default compose (connect(mapStateToProps, {setCurrentPlaylist,deletePlaylist}),withRouter)(PlaylistMusic);
+export default compose (connect(mapStateToProps, {setCurrentPlaylist,deletePlaylist,addDataTracks}),withRouter)(PlaylistMusic);

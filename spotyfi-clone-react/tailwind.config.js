@@ -16,7 +16,8 @@ module.exports = {
     extend: {
       gridTemplateColumns:{
         "main": "repeat(auto-fill, minmax(208px, 1fr))",
-        'music': "4fr 2fr 1.5fr"
+        'music': "4fr 2fr 1.5fr",
+        'player': '1fr 2fr 1fr'
       },
       boxShadow: {
         '3xl': '0 4px 60px rgba(0, 0, 0, 0.5)',

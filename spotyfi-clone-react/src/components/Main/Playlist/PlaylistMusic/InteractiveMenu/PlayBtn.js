@@ -1,16 +1,30 @@
-import React from "react";
-import {PlayIcon} from "@heroicons/react/24/outline";
+import React, {useEffect} from "react";
+import {PlayIcon, PauseIcon} from "@heroicons/react/24/outline";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {deletePlaylist, setCurrentPlaylist} from "../../../../Redux/basePlaylist";
+import {withRouter} from "../../../../../hooks/withRouter";
+import {changeStatusToPlay, changeStatusToPause} from "../../../../Redux/PlayingTrack";
 
 
 
-function PlayBtn({classes,playBtnRef}){
+function PlayBtn({classes:width,playBtnRef, handleClick,playingStatus,changeStatusToPlay,changeStatusToPause}){
     return(
-        <div ref={playBtnRef} className={`${classes} hover:scale-105`}>
+        <div ref={playBtnRef} className={`${width} hover:scale-105`}>
                         <span className='flex items-center justify-center w-full h-full bg-[#1abc54] rounded-full'>
-                            <PlayIcon className='fill-black text-black w-1/2 h-1/2'/>
+                            {
+                                playingStatus ?  <PauseIcon onClick={changeStatusToPause} className='fill-black text-black w-1/2 h-1/2'/> : <PlayIcon onClick={changeStatusToPlay} className='fill-black text-black w-1/2 h-1/2'/>
+                            }
+
                         </span>
         </div>
     )
 }
 
-export default PlayBtn;
+let mapStateToProps = (state)=>{
+    return{
+        playingStatus: state.PlayingTrack.statusPlayBtn,
+    }
+}
+
+export default  connect(mapStateToProps, {changeStatusToPlay,changeStatusToPause})(PlayBtn);

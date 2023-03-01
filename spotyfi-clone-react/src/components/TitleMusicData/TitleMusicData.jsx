@@ -19,7 +19,7 @@ function TitleMusicData({headerRef,contentWrapperRef}){
     }
     useEvent('scroll',handleClassesTitle, true, ()=>contentWrapperRef.current)
     return(
-        <div className={`sticky top-[${heightHeader + 'px'}] border-neutral-400 px-8 z-10 ${titleDataMusicClasses}`}>
+        <div className={`sticky top-[68px] border-neutral-400 px-8 z-10 ${titleDataMusicClasses}`}>
             <div ref={titleRef} className={`grid grid-cols-music px-8 py-4 w-full border-b border-neutral-400`}>
                 <div className='flex gap-5 w-1/3'>
                     <span>#</span>

@@ -4,7 +4,8 @@ import useClickAway from "./useClickAway";
 
 
 
-function useFocusStyleMusic(){
+function useFocusStyleMusic(preview){
+
     const ref = useRef(null)
     const [isCurrentFocus, setCurrentFocus] = useState(false)
     const [classesCurrent, setClassesCurrent] = useState('')
@@ -12,6 +13,9 @@ function useFocusStyleMusic(){
 
 
     const handleCurrent = ()=>{
+        if (preview == null){
+            return
+        }
         setCurrentFocus(!isCurrentFocus)
         if (!isCurrentFocus){
             setClassesCurrent('bg-neutral-600')
@@ -19,6 +23,9 @@ function useFocusStyleMusic(){
     }
 
     const enterCurrent = ()=>{
+        if (preview == null){
+            return
+        }
         if (isCurrentFocus){
             setHover(false)
         }else {
@@ -28,6 +35,7 @@ function useFocusStyleMusic(){
 
     }
     const leaveCurrent = ()=>{
+        if (preview == null)return
         if (isCurrentFocus){
             setHover(false)
         }else {

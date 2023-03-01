@@ -11,10 +11,33 @@ import PlaylistContextMenu from "../../PlaylistContextMenu";
 import useFocusStyleMusic from "../../../../../hooks/useFocusStyleMusic";
 import {PlayIcon} from "@heroicons/react/24/solid";
 import PlayBtn from "../../../../PlayButton/PlayBtn";
+import useClickAway from "../../../../../hooks/useClickAway";
+import {useEffect, useRef} from "react";
+import MainInfoTrack from "../../../../MainInfoTrack/MainInfoTrack";
+import {
+    addDataTracks,
+    changeStatusToPause,
+    changeStatusToPlay,
+    setNexTrackId,
+    setTrack, setTrackId
+} from "../../../../Redux/PlayingTrack";
+import playlist from "../../Playlist";
 
 
 
-function Music({track, id, toggleScrolling, showToast,showPopover}){
+function Music({track, id, toggleScrolling, showToast,showPopover,addDataTracks,playingStatus,changeStatusToPlay,changeStatusToPause,playlists,currentTrack,currentTrackID}){
+    // console.log(currentTrack)
+    // console.log(currentTrackID)
+
+
+    const preview = track.preview_url
+    let startClasses = ''
+    if (preview === null){
+        startClasses = 'opacity-50'
+    }
+
+
+    // для котексного меню
     const recommendationModal = useModal();
     const embedModal = useModal()
     const {
@@ -32,40 +55,63 @@ function Music({track, id, toggleScrolling, showToast,showPopover}){
     }
 
 // хук для изменения фона при наведении и при клике
+
     const {handleCurrent,
         enterCurrent,
         leaveCurrent,
         isCurrentFocus,
         classesCurrent,
         isHover,
-        ref} = useFocusStyleMusic();
+        ref} = useFocusStyleMusic(preview);
+
+// состояние для кнопки плей
+    const [isPlaying, setIsPlaying] = useState(false);
+    function test (){
+        if (!playingStatus){
+            changeStatusToPlay();
+        }else changeStatusToPause();
+    }
+
+    const handleClick = ()=>{
+        console.log("это клик по кнопке ")
+        if (!isPlaying){
+            addDataTracks(playlists.tracks, id);
+        }
+        setIsPlaying(!isPlaying);
+        test()
+
+    }
+
+    useClickAway(handleCurrent,ref, false);
+
+    useEffect(()=>{
+        if (currentTrack.trackName === track.name){
+            setIsPlaying(true)
+        }else setIsPlaying(false)
+
+    },[currentTrack,playingStatus])
 
 
-    //условия при кторорых видны кнопки избраного контекста и плеера
+    //условия при кторорых видны кнопки избраного, контекста и плеера
 
     const showFavoriteBtn = isCurrentFocus || isHover || isFavorites;
-    const showOtherBtn = isCurrentFocus || isHover;
+    const showOtherBtn = isCurrentFocus || isHover || isPlaying;
+
+
+
+
 
 
     return(
-        <div ref={ref} onClick={handleCurrent} onMouseEnter={enterCurrent} onMouseLeave={leaveCurrent} className={`grid grid-cols-music h-[56px] rounded px-16 ${classesCurrent}`}>
+        <div ref={ref} onClick={handleCurrent} onMouseEnter={enterCurrent} onMouseLeave={leaveCurrent} className={`grid grid-cols-music h-[56px] rounded px-16 ${startClasses} ${classesCurrent}`}>
             <div className='flex items-center gap-5'>
                 <span className='w-5 h-5'>
                     {
-                        showOtherBtn ? <PlayBtn/> : id + 1
+                        showOtherBtn ? <PlayBtn setIsPlaying={setIsPlaying} id={id} isPlaying={isPlaying} handleClick={handleClick} /> : id + 1
                     }
 
                 </span>
-
-                <div className='w-[40px] h-[40px]'><img src={track.album.images[2].url} alt=""/></div>
-                <div className='flex flex-col justify-between'>
-                    <span className='text-white text-[16px] '>{track.name}</span>
-                    <div className='flex gap-1'>
-                        <span className='flex items-center h-4 px-[5px] py-[3px] bg-neutral-400 rounded text-black text-[9px]'>E</span>
-                        <span>{track.artists[0].name}</span>
-                    </div>
-
-                </div>
+                <MainInfoTrack isE imgClasses={'w-[40px] h-[40px]'} trackImg={track.album.images[2].url} trackName={track.name} artistName={track.artists[0].name}/>
             </div>
             <div className='flex items-center'>
                 {track.album.name}
@@ -105,9 +151,12 @@ let mapStateToProps = (state)=>{
     return{
         isAuth: state.authorization.isAuth,
         token:state.authorization.token,
-        playlists: state.homePagePlaylists.currentPlaylist
+        playlists: state.homePagePlaylists.currentPlaylist,
+        currentTrack: state.PlayingTrack.currentTrack,
+        playingStatus: state.PlayingTrack.statusPlayBtn,
+        currentTrackID: state.PlayingTrack.currentTrackID,
     }
 }
 
-export default connect(mapStateToProps, {})(Music);
+export default connect(mapStateToProps, {setTrackId,changeStatusToPlay,changeStatusToPause,addDataTracks,setNexTrackId})(Music);
 //hover:bg-neutral-600/70

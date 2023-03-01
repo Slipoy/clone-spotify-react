@@ -19,7 +19,6 @@ function MusicData({playlists, showToast, showPopover,toggleScrolling,headerRef,
             {
                 playlists.tracks && playlists.tracks.map((track, index)=> <Music showPopover={showPopover} showToast={showToast} toggleScrolling={toggleScrolling} id={index} key={index} track={track.track}/>)
             }
-            <audio></audio>
         </div>
     )
 
